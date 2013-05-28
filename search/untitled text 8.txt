@@ -1,0 +1,164 @@
+def makeTokens(csv)
+        Find.find(ARGV[0]) do |path|
+                ext = File.extname(path)
+                        if(ext== ".txt")
+                                mail = Mail.read(path)
+                                messid = mail.message_id
+                                body = mail.body.decoded
+                                words=body.split(/[^A-Za-z]+/)
+                                #f1.write(words)
+#                               puts words
+#                               index = 0
+                                words.each do |token|
+                                        if(token != "")
+                                        token = token.downcase.strip
+                                        csv<< [messid,token]
+#                                       index = index.next
+                                        end
+                                end
+                                newwords = words.sort
+                                puts newwords
+                                File.open("tokenspace.txt", "w"){|file| file.write(newwor$
+                        end
+        end
+end
+
+
+
+require 'mail'
+require 'csv'
+require 'find'
+
+def cs186token (csv)
+  Find.find(ARGV[0]) do |path|
+    ext = File.extname(path)
+    if (ext == ".txt")
+      mail = Mail.read(path)
+      message_id = mail.message_id
+      body = mail.body.decoded
+      words = body.split(/[^A-Za-z]+/)
+      words.each do |w|
+        if (w != "")
+          w = w.downcase.strip
+          csv << [message_id, w]
+      end
+     end
+end
+
+CSV.open("tokens.csv", "wt") do |csv|
+    csv << ["message_id", "token"]
+    cs186token(csv)
+end
+
+
+require 'mail'
+require 'csv'
+require 'find'
+
+
+def cs186mail (csv)
+  Find.find(ARGV[0]) do |path|
+    ext = File.extname(path)
+    if (ext == ".txt")
+      mail = Mail.read(path)
+      from = mail.from
+      to = mail.to
+      cc = mail.cc
+      subject = mail.subject
+      date = mail.date.to_s
+      message_id = mail.message_id
+      body = mail.body.decoded
+      csv << [path, from, to, cc, subject, date, message_id, body]
+      end
+    end
+end
+
+CSV.open("mail.csv","wb") do |csv|
+  csv << ["file_name", "from", "to", "cc", "subject", "date", "message_id", "body"]
+  cs186mail(csv)
+end
+
+
+
+
+
+
+
+def makeTokens(csv)
+        Find.find(ARGV[0]) do |path|
+                ext = File.extname(path)
+                        if(ext== ".txt")
+                                mail = Mail.read(path)
+                                messid = mail.message_id
+                                body = mail.body.decoded
+                                words=body.split(/[^A-Za-z]+/)
+                                f1=File.open("tokenspace.txt")
+#                               puts words
+#                               index = 0
+                                words.each do |token|
+                                        if(token != "")
+                                        token = token.downcase.strip
+                                        f1.puts(token)
+                                        csv<< [messid,token]
+#                                       index = index.next
+                                        end
+                                end
+                                f1.close
+#                               newwords = words.sort
+#                               puts newwords
+#                               File.open("tokenspace.txt", "w+"){|file| file.write(newwo$
+                        end
+        end
+end
+
+
+CSV.open("tokens.csv", "wt") do |csv|
+        csv << ["message_id", "token"]
+        makeTokens(csv)
+end
+
+
+#count tokens
+#def countTokens(csv)
+#       puts csv
+#end
+
+CSV.open("token_counts.csv", "wt") do |csv|
+        csv << ["token", "count"]
+#       countTokens("tokens.csv")
+end
+
+
+
+
+
+
+
+
+
+
+
+
+def cs186tokencount(csv)
+  Find.find(ARGV[0]) do |path|
+    ext = File.extname(path)
+    if(ext == ".txt")
+      mail = Mail.read(path)
+      body = mail.body.decoded
+      words = body.split(/[^a-zA-Z]+/)
+      words = words.sort
+      words.each do |w|
+        if (w != "")
+          w = w.downcase.strip
+          count = 0
+         # w.each do |
+         # csv << [w]
+        end
+      end
+    end
+  end
+end
+
+
+
+      
